@@ -1,4 +1,4 @@
-package com.github.apipractise;
+package com.github.apipractise.api;
 
 public class Api {
 }
