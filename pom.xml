@@ -19,6 +19,7 @@
         <version.junit>4.13.2</version.junit>
         <version.sl4j>2.0.17</version.sl4j>
         <version.unirest>3.14.5</version.unirest>
+        <version.dotenv>3.0.0</version.dotenv>
     </properties>
 
     <dependencies>
@@ -54,6 +55,11 @@
             <artifactId>unirest-java</artifactId>
             <version>${version.unirest}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>dotenv-java</artifactId>
+            <version>${version.dotenv}</version>
         </dependency>
     </dependencies>
 
