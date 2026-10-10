@@ -40,7 +40,7 @@ buildNumber.properties
 .classpath
 
 # Environment variables
-.env/
+.env
 
 # Intellij
 .idea/
