@@ -17,6 +17,7 @@
         <version.javalin>7.2.3</version.javalin>
         <version.postgres>42.7.14</version.postgres>
         <version.junit>4.13.2</version.junit>
+        <version.sl4j>2.0.20</version.sl4j>
     </properties>
 
     <dependencies>
@@ -42,6 +43,12 @@
             <version>${version.junit}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${version.sl4j}</version>
+        </dependency>
+
     </dependencies>
 
 <!--    <build>-->
