@@ -8,6 +8,7 @@ public class Api {
 
     public Api() {
         this.server = Javalin.create();
+        this.server.get("hello", context -> context.result("Api is active"));
     }
 
     public Javalin start(int port) {
