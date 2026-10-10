@@ -14,10 +14,10 @@
         <maven.compiler.source>21</maven.compiler.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.jackson>2.22.3</version.jackson>
-        <version.javalin>7.2.3</version.javalin>
+        <version.javalin>6.7.0</version.javalin>
         <version.postgres>42.7.14</version.postgres>
         <version.junit>4.13.2</version.junit>
-        <version.sl4j>2.0.20</version.sl4j>
+        <version.sl4j>2.0.17</version.sl4j>
     </properties>
 
     <dependencies>
