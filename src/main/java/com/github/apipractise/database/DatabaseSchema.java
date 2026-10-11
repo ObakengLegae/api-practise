@@ -1,0 +1,27 @@
+package com.github.apipractise.database;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class DatabaseSchema {
+
+    public DatabaseSchema() {}
+
+    public static void createSchema(Connection connection) throws SQLException {
+        try (Statement stmt = connection.createStatement()) {
+
+            String productsSql = """
+                    CREATE TABLE IF NOT EXISTS products (
+                        id SERIAL PRIMARY KEY,
+                        name VARCHAR(200) NOT NULL,
+                        description TEXT,
+                        price DECIMAL(10,2) NOT NULL,
+                        stock_quantity INT DEFAULT 0,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+                    """;
+
+            stmt.execute(productsSql);
+        }
+    }
+}
