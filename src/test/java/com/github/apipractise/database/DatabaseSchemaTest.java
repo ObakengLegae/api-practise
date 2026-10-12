@@ -43,6 +43,20 @@ public class DatabaseSchemaTest {
         assertEquals(schemaTable, dbTable);
     }
 
+    @Test
+    void testOrdersColumns() throws SQLException {
+        Map<String, String> schemaTable = new HashMap<>(Map.of(
+                "id", "INTEGER",
+                "customer_email", "CHARACTER VARYING",
+                "status", "CHARACTER VARYING",
+                "total_amount", "NUMERIC",
+                "created_at", "TIMESTAMP WITHOUT TIMEZONE"
+        ));
+
+        Map<String, String> dbTable = columns("orders");
+        assertEquals(schemaTable, dbTable);
+    }
+
     private Map<String, String> columns(String tableName) throws SQLException {
         Map<String, String> columns = new HashMap<>();
         try (Statement stmt = connection.createStatement();
