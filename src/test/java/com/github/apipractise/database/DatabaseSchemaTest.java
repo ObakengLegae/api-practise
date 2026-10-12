@@ -39,19 +39,24 @@ public class DatabaseSchemaTest {
                 "created_at", "TIMESTAMP WITHOUT TIME ZONE"
         ));
 
-        Map<String, String> dbTable = new HashMap<>();
+        Map<String, String> dbTable = columns("products");
+        assertEquals(schemaTable, dbTable);
+    }
+
+    private Map<String, String> columns(String tableName) throws SQLException {
+        Map<String, String> columns = new HashMap<>();
         try (Statement stmt = connection.createStatement();
              ResultSet resultSet = stmt.executeQuery("""
                     SELECT column_name, data_type
                     FROM information_schema.columns
                     WHERE table_schema = 'public' 
-                    AND table_name = 'products';
-                    """)
+                    AND table_name = '%s';
+                    """.formatted(tableName))
         ) {
             while (resultSet.next()) {
-                dbTable.put(resultSet.getString("column_name"), resultSet.getString("data_type").toUpperCase());
+                columns.put(resultSet.getString("column_name"), resultSet.getString("data_type").toUpperCase());
             }
         }
-        assertEquals(schemaTable, dbTable);
+        return columns;
     }
 }
