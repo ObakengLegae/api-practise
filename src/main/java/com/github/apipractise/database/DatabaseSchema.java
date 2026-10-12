@@ -21,7 +21,18 @@ public class DatabaseSchema {
                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
                     """;
 
+            String ordersSql = """
+                    CREATE TABLE IF NOT EXISTS orders (
+                        id SERIAL PRIMARY KEY,
+                        customer_email VARCHAR(150) NOT NULL,
+                        status VARCHAR(50) DEFAULT 'pending',
+                        total_amount DECIMAL(10, 2) NOT NULL,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    );
+                    """;
+
             stmt.execute(productsSql);
+            stmt.execute(ordersSql);
         }
     }
 }

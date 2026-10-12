@@ -50,7 +50,7 @@ public class DatabaseSchemaTest {
                 "customer_email", "CHARACTER VARYING",
                 "status", "CHARACTER VARYING",
                 "total_amount", "NUMERIC",
-                "created_at", "TIMESTAMP WITHOUT TIMEZONE"
+                "created_at", "TIMESTAMP WITHOUT TIME ZONE"
         ));
 
         Map<String, String> dbTable = columns("orders");
