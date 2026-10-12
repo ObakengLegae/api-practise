@@ -1,8 +1,9 @@
 package com.github.apipractise.database;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import com.github.apipractise.database.dbobjects.ProductResponse;
+
+import java.math.BigDecimal;
+import java.sql.*;
 
 public class DatabaseSchema {
 
@@ -47,5 +48,26 @@ public class DatabaseSchema {
             stmt.execute(ordersSql);
             stmt.execute(orderItemsSql);
         }
+    }
+
+    public ProductResponse getProduct(Connection connection, int id) throws SQLException{
+        ProductResponse productResponse = null;
+        String sql = "SELECT * FROM products WHERE id=?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int productId = rs.getInt("id");
+                String name = rs.getString("name");
+                String description = rs.getString("description");
+                BigDecimal price = rs.getBigDecimal("price");
+                int stockQuantity = rs.getInt("stock_quantity");
+
+                productResponse = new ProductResponse(productId, name, description, price, stockQuantity);
+            }
+        }
+        return productResponse;
     }
 }
