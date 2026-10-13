@@ -2,7 +2,7 @@ package com.github.apipractise.database.dbobjects;
 
 import java.math.BigDecimal;
 
-public record createProduct (
+public record CreateProduct(
         String name,
         String description,
         BigDecimal price,
