@@ -71,6 +71,11 @@ public class DatabaseSchemaTest {
         assertEquals(schemaTable, dbTable);
     }
 
+    @Test
+    void testHealthCheck() {
+        assertTrue(DatabaseSchema.healthCheck(connection));
+    }
+
     private Map<String, String> columns(String tableName) throws SQLException {
         Map<String, String> columns = new HashMap<>();
         try (Statement stmt = connection.createStatement();
