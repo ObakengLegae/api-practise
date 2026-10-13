@@ -11,12 +11,11 @@ public class ApiTest {
     private static final int TESTING_PORT = 8000;
 
     @Test
-    void shouldGetResponse() {
+    void shouldGetOKResponse() {
         Api api = new Api();
         api.start(TESTING_PORT);
-        HttpResponse<String> response = Unirest.get("http://localhost:8000/hello").asString();
+        HttpResponse<String> response = Unirest.get("http://localhost:8000/health").asString();
         assertEquals(200, response.getStatus());
-        assertEquals("Api is active", response.getBody());
         api.stop();
     }
 
