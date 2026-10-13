@@ -51,6 +51,16 @@ public class DatabaseSchema {
         }
     }
 
+    public Boolean healthCheck(Connection connection) {
+        String sql = "SELECT 1;";
+        try (Statement stmt = connection.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return true;
+    }
+
     public ProductResponse getProduct(Connection connection, int id) throws SQLException{
         ProductResponse productResponse = null;
         String sql = "SELECT * FROM products WHERE id=?";
