@@ -56,7 +56,7 @@ public class DatabaseSchema {
         try (Statement stmt = connection.createStatement()) {
             stmt.execute(sql);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return false;
         }
         return true;
     }
