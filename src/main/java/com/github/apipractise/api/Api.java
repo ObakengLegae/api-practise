@@ -1,14 +1,28 @@
 package com.github.apipractise.api;
 
+import com.github.apipractise.database.DatabaseConnection;
 import io.javalin.Javalin;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class Api {
     private static final int DEFAULT_PORT = 7000;
     private final Javalin server;
+    private final Connection connection;
 
     public Api() {
-        this.server = Javalin.create();
-        this.server.get("hello", context -> context.result("Api is active"));
+        try {
+            this.server = Javalin.create();
+
+            this.connection = DatabaseConnection.connect();
+            ApiHandler.initializeConnection(connection);
+
+            this.server.get("/health", ApiHandler::getHealthCheck);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Javalin start(int port) {
