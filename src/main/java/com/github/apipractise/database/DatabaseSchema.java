@@ -51,7 +51,7 @@ public class DatabaseSchema {
         }
     }
 
-    public Boolean healthCheck(Connection connection) {
+    public static Boolean healthCheck(Connection connection) {
         String sql = "SELECT 1;";
         try (Statement stmt = connection.createStatement()) {
             stmt.execute(sql);
@@ -61,7 +61,7 @@ public class DatabaseSchema {
         return true;
     }
 
-    public ProductResponse getProduct(Connection connection, int id) throws SQLException{
+    public static ProductResponse getProduct(Connection connection, int id) throws SQLException{
         ProductResponse productResponse = null;
         String sql = "SELECT * FROM products WHERE id=?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -82,7 +82,7 @@ public class DatabaseSchema {
         return productResponse;
     }
 
-    public ProductResponse addProduct(Connection connection, CreateProduct createProduct) throws SQLException {
+    public static ProductResponse addProduct(Connection connection, CreateProduct createProduct) throws SQLException {
         ProductResponse productResponse = null;
         String sql = "INSERT INTO products(name, description, price, stock_quantity) VALUES(?, ?, ?, ?)";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
