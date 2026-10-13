@@ -23,10 +23,14 @@ public class ApiHandler {
         if (!DatabaseSchema.healthCheck(connection)) {
             response(ctx, 500, "An internal error occurred.");
         }
-        response(ctx, 200, "OK");
+        response(ctx, 200);
     }
 
-    private static void response (Context ctx, int status, String message) {
+    private static void response(Context ctx, int status, String message) {
         ctx.status(status).contentType(CONTENT_TYPE).result("{\"message\":\"" + message + "\"}");
+    }
+
+    private static void response(Context ctx, int status) {
+        ctx.status(status).contentType(CONTENT_TYPE);
     }
 }
