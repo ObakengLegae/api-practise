@@ -1,9 +1,12 @@
 package com.github.apipractise.database;
 
+import com.github.apipractise.database.dbobjects.CreateProduct;
+import com.github.apipractise.database.dbobjects.ProductResponse;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -74,6 +77,23 @@ public class DatabaseSchemaTest {
     @Test
     void testHealthCheck() {
         assertTrue(DatabaseSchema.healthCheck(connection));
+    }
+
+    @Test
+    void testAddProduct() throws SQLException {
+        CreateProduct createProduct = new CreateProduct(
+                "pencil",
+                "A writing or drawing tool",
+                new BigDecimal("15.00"),
+                1
+        );
+
+        ProductResponse response = DatabaseSchema.addProduct(connection, createProduct);
+
+        assertEquals("pencil", response.name());
+        assertEquals("A writing or drawing tool", response.description());
+        assertEquals(new BigDecimal("15.00"), response.price());
+        assertEquals(1, response.stockQuantity());
     }
 
     private Map<String, String> columns(String tableName) throws SQLException {
