@@ -29,7 +29,10 @@ public class Api {
         return this.server.start(port);
     }
 
-    public Javalin stop() {
+    public Javalin stop() throws SQLException {
+        if (this.connection != null && !this.connection.isClosed()) {
+            this.connection.close();
+        }
         return this.server.stop();
     }
 
