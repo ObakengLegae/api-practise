@@ -1,6 +1,8 @@
 package com.github.apipractise.database;
 
+import com.github.apipractise.database.dbobjects.CreateOrder;
 import com.github.apipractise.database.dbobjects.CreateProduct;
+import com.github.apipractise.database.dbobjects.OrderResponse;
 import com.github.apipractise.database.dbobjects.ProductResponse;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -94,6 +96,21 @@ public class DatabaseSchemaTest {
         assertEquals("A writing or drawing tool", response.description());
         assertEquals(new BigDecimal("15.00"), response.price());
         assertEquals(1, response.stockQuantity());
+    }
+
+    @Test
+    void testAddOrder() throws SQLException {
+        CreateOrder createOrder = new CreateOrder(
+                "someone@gmail.com",
+                "created",
+                new BigDecimal("150.00")
+        );
+
+        OrderResponse response = DatabaseSchema.addOrder(connection, createOrder);
+
+        assertEquals("someone@gmail.com", response.customerEmail());
+        assertEquals("created", response.status());
+        assertEquals(new BigDecimal("150.00"), response.totalAmount());
     }
 
     private Map<String, String> columns(String tableName) throws SQLException {
