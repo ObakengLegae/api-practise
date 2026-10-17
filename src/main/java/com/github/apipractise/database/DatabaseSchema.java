@@ -84,7 +84,7 @@ public class DatabaseSchema {
 
     public static ProductResponse addProduct(Connection connection, CreateProduct createProduct) throws SQLException {
         ProductResponse productResponse = null;
-        String sql = "INSERT INTO products(name, description, price, stock_quantity) VALUES(?, ?, ?, ?)";
+        String sql = "INSERT INTO products(name, description, price, stock_quantity) VALUES(?, ?, ?, ?) RETURNING *";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, createProduct.name());
             pstmt.setString(2, createProduct.description());
