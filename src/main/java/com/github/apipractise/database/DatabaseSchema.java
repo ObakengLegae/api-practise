@@ -1,6 +1,8 @@
 package com.github.apipractise.database;
 
+import com.github.apipractise.database.dbobjects.CreateOrder;
 import com.github.apipractise.database.dbobjects.CreateProduct;
+import com.github.apipractise.database.dbobjects.OrderResponse;
 import com.github.apipractise.database.dbobjects.ProductResponse;
 
 import java.math.BigDecimal;
@@ -104,5 +106,28 @@ public class DatabaseSchema {
             }
         }
         return productResponse;
+    }
+
+    public static OrderResponse addOrder(Connection connection, CreateOrder createOrder) throws SQLException {
+        OrderResponse orderResponse = null;
+        String sql = "INSERT INTO orders(customer_email, status, total_amount) VALUES(?, ?, ?) RETURNING *";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, createOrder.customerEmail());
+            pstmt.setString(2, createOrder.status());
+            pstmt.setBigDecimal(3, createOrder.totalAmount());
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int orderId = rs.getInt("id");
+                String customerEmail = rs.getString("customer_email");
+                String status = rs.getString("status");
+                BigDecimal totalAmount = rs.getBigDecimal("total_amount");
+                Timestamp createdAt = rs.getTimestamp("created_at");
+
+                orderResponse = new OrderResponse(orderId, customerEmail, status, totalAmount, createdAt);
+            }
+        }
+        return orderResponse;
     }
 }
